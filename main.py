@@ -1,7 +1,7 @@
-from util.process import process_file
+from util.process import process_file, export_csv
 
 def main():
-    process_file('test.log')
+    export_csv()
 
 if __name__ == '__main__':
     main()

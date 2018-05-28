@@ -1,11 +1,26 @@
 import pandas as pd
 
 import multiprocessing as mp
+import time
 import os
-
+import csv
 from itertools import izip, islice
-from const import LINES_CHUNK, g
+
+from const import LINES_CHUNK, DATASET_PATH, g, COLS, NORM_COLS
 import features as ft
+
+def export_csv():
+    df = pd.DataFrame(columns=COLS)
+
+    for d in os.listdir(DATASET_PATH):
+        s = './' + DATASET_PATH + '/' + d + '/' + d + '_accelerometer.log'
+        print(s)
+        df = df.append(process_file(s), ignore_index=True)
+
+    # Normalize
+    df[NORM_COLS] = df[NORM_COLS].apply(lambda x: (x - x.min()) / (x.max() - x.min()))
+
+    df.to_csv('proc.csv', encoding='utf-8', index=False, quoting=csv.QUOTE_NONNUMERIC)
 
 def process_wrapper(lines, fname):
     # Extract raw sensor values
@@ -43,7 +58,7 @@ def process_wrapper(lines, fname):
     results.extend(ft._maxima(sensorVals))
 
     # Class
-    results.append('u001')
+    results.append(os.path.basename(fname).split('_')[0])
 
     # Histograms
     results.extend(ft._hist(sensorVals, -1.5 * g, 1.5 * g))
@@ -60,15 +75,8 @@ def chunkify(fname, lines=LINES_CHUNK):
             yield chunk
 
 def process_file(file):
-    # Features to be extracted
-    cols = ['xavg', 'yavg', 'zavg', 'xstddev', 'ystddev', 'zstddev', 'xabsdev', 'yabsdev', 'zabsdev', 
-            'res', 'xzcr', 'yzcr', 'zzcr', 'minx', 'miny', 'minz', 'maxx', 'maxy', 'maxz', 'class',
-            'x0', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9',
-            'y0', 'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8', 'y9',
-            'z0', 'z1', 'z2', 'z3', 'z4', 'z5', 'z6', 'z7', 'z8', 'z9']
-
     # Create dataframe that stores the results
-    df = pd.DataFrame(columns=cols)
+    df = pd.DataFrame(columns=COLS)
 
     pool = mp.Pool(processes=None)
     jobs = []
@@ -83,5 +91,4 @@ def process_file(file):
 
     pool.close()
 
-    print(df.head())
-    print(df.shape[0])
+    return df

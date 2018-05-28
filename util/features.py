@@ -1,5 +1,5 @@
 from math import sqrt
-from const import bins
+from const import BINS
 
 def _avg(vals):
     N = len(vals)
@@ -73,13 +73,13 @@ def _minima(vals):
     minz = vals[0][2]
 
     for val in vals:
-        if minx < val[0]:
+        if minx > val[0]:
             minx = val[0]
 
-        if miny < val[1]:
+        if miny > val[1]:
             miny = val[1]
 
-        if minz < val[2]:
+        if minz > val[2]:
             minz = val[2]
 
     return [minx, miny, minz]
@@ -90,31 +90,31 @@ def _maxima(vals):
     maxz = vals[0][2]
 
     for val in vals:
-        if maxx > val[0]:
+        if maxx < val[0]:
             maxx = val[0]
 
-        if maxy > val[1]:
+        if maxy < val[1]:
             maxy = val[1]
 
-        if maxz > val[2]:
+        if maxz < val[2]:
             maxz = val[2]
 
     return [maxx, maxy, maxz]
 
 def _hist(vals, minval, maxval):
     N = len(vals)
-    binx = [0] * bins
-    biny = [0] * bins
-    binz = [0] * bins
-    step = (maxval - minval) / float(bins)
+    binx = [0] * BINS
+    biny = [0] * BINS
+    binz = [0] * BINS
+    step = (maxval - minval) / float(BINS)
 
     for val in vals:
         if val[0] < minval:
             binx[0] += 1
         elif val[0] > maxval:
-            binx[bins - 1] += 1
+            binx[BINS - 1] += 1
         else:
-            for i in range(bins-1, -1, -1):
+            for i in range(BINS-1, -1, -1):
                 if val[0] > (minval + i * step):
                     binx[i] += 1
                     break
@@ -123,9 +123,9 @@ def _hist(vals, minval, maxval):
         if val[1] < minval:
             biny[0] += 1
         elif val[1] > maxval:
-            biny[bins - 1] += 1
+            biny[BINS - 1] += 1
         else:
-            for i in range(bins-1, -1, -1):
+            for i in range(BINS-1, -1, -1):
                 if val[1] > minval + i * step:
                     biny[i] += 1
                     break
@@ -134,14 +134,14 @@ def _hist(vals, minval, maxval):
         if val[2] < minval:
             binz[0] += 1
         elif val[2] > maxval:
-            binz[bins - 1] += 1
+            binz[BINS - 1] += 1
         else:
-            for i in range(bins-1, -1, -1):
+            for i in range(BINS-1, -1, -1):
                 if val[2] > minval + i * step:
                     binz[i] += 1
                     break
     
-    for i in range(bins):
+    for i in range(BINS):
         binx[i] /= float(N)
         biny[i] /= float(N)
         binz[i] /= float(N)
