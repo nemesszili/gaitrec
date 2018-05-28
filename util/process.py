@@ -79,12 +79,9 @@ def process_file(file):
 
     # Wait for all jobs to finish
     for job in range(len(jobs)):
-        res = jobs[job].get()
-        print(res)
-        print(len(res))
-        print(df.shape[1])
-        df.loc[df.shape[0]] = res
+        df.loc[df.shape[0]] = jobs[job].get()
 
     pool.close()
 
     print(df.head())
+    print(df.shape[0])
