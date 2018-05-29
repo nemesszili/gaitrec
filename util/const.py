@@ -1,5 +1,5 @@
-LINES_CHUNK = 256
 DATASET_PATH = 'dataset'
+CSV_PATH = 'proc.csv'
 g = 9.81
 BINS = 10
 COLS = ['xavg', 'yavg', 'zavg', 'xstddev', 'ystddev', 'zstddev', 'xabsdev', 'yabsdev', 'zabsdev', 
@@ -9,3 +9,7 @@ COLS = ['xavg', 'yavg', 'zavg', 'xstddev', 'ystddev', 'zstddev', 'xabsdev', 'yab
         'z0', 'z1', 'z2', 'z3', 'z4', 'z5', 'z6', 'z7', 'z8', 'z9']
 NORM_COLS = ['xavg', 'yavg', 'zavg', 'xstddev', 'ystddev', 'zstddev', 'xabsdev', 'yabsdev', 'zabsdev', 
         'res', 'minx', 'miny', 'minz', 'maxx', 'maxy', 'maxz']
+
+LINES_CHUNK = 256
+TEST_RATIO = 0.2
+SEED = 42
