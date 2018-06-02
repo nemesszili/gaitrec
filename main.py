@@ -54,7 +54,8 @@ def main():
         neg_scores['class'] = u
         scores = scores.append(neg_scores)
 
-    plot_scores(users[19], scores)
+        plot_scores(u, scores)
+
     plot_AUC(scores)
 
 if __name__ == '__main__':

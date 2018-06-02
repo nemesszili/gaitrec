@@ -10,6 +10,6 @@ DATASET_PATH = 'dataset'
 g = 9.81
 LINES_CHUNK = 256
 NORM_COLS = ['xavg', 'yavg', 'zavg', 'xstddev', 'ystddev', 'zstddev', 'xabsdev', 'yabsdev', 'zabsdev', 
-        'res', 'minx', 'miny', 'minz', 'maxx', 'maxy', 'maxz']
+             'res', 'minx', 'miny', 'minz', 'maxx', 'maxy', 'maxz']
 SEED = 42
 TEST_RATIO = 0.2
