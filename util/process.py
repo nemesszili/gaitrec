@@ -4,10 +4,10 @@ import multiprocessing as mp
 import time
 import os
 import csv
-from itertools import izip, islice
+from itertools import islice
 
-from const import LINES_CHUNK, DATASET_PATH, g, COLS, NORM_COLS
-import features as ft
+from util.const import LINES_CHUNK, DATASET_PATH, g, COLS, NORM_COLS
+import util.features as ft
 
 def export_csv():
     df = pd.DataFrame(columns=COLS)
@@ -71,7 +71,7 @@ def chunkify(fname, lines=LINES_CHUNK):
         next(f)
 
         # Chunkify
-        for chunk in izip(*[f] * lines):
+        for chunk in zip(*[f] * lines):
             yield chunk
 
 def process_file(file):

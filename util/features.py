@@ -1,5 +1,5 @@
 from math import sqrt
-from const import BINS
+from util.const import BINS
 
 def _avg(vals):
     N = len(vals)

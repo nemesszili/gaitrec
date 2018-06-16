@@ -37,8 +37,8 @@ def plot_scores(userid, df):
 
     plt.figure()
     plt.title("User: "+str(userid), fontsize=8)
-    plt.hist(impostor.values, label='Impostors', normed=True, color='C1', alpha=0.5, bins=20)
-    plt.hist(genuine.values, label='Genuine', normed=True, color='C0', alpha=0.5, bins=20)
+    plt.hist(impostor.values, label='Impostors', density=True, color='C1', alpha=0.5, bins=20)
+    plt.hist(genuine.values, label='Genuine', density=True, color='C0', alpha=0.5, bins=20)
     plt.legend(fontsize=8)
     plt.yticks([], [])
     plt.show()
